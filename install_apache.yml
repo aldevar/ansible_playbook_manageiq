@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+
+  tasks:
+    - name: Install Apache Package
+      yum:
+        name: httpd
+	state: latest
