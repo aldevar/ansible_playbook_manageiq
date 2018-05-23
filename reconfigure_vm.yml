@@ -1,0 +1,40 @@
+---
+# Reconfigure the CPU and Memory on the newly created VM
+# Will return the changes made
+
+- hosts: all
+  gather_facts: false
+  connection: local
+
+  tasks:
+  - name: Stop virtual machine
+    vmware_guest:
+       #hostname: "{{ vcenter_hostname }}"
+       #username: "{{ vcenter_user }}"
+       #password: "{{ vcenter_pass }}"
+       hostname: "vcenter01.sib.fr"
+       validate_certs: "false"
+       folder: "Infra"
+       cluster: "SIB-CLUSTER01"
+       datacenter: SIB
+       name: "ansible_test"
+       state: "poweredoff"
+    delegate_to: "localhost"
+    register: stop_vm
+
+  - name: reconfigure CPU and RAM of VM
+    vmware_guest:
+       #hostname: "{{ vcenter_hostname }}"
+       #username: "{{ vcenter_user }}"
+       #password: "{{ vcenter_pass }}"
+       hostname: "vcenter01.sib.fr"
+       cluster: "SIB-CLUSTER01"
+       datacenter: SIB
+       name: "ansible_test"
+       state: "present"
+       validate_certs: "false"
+       folder: "Infra"
+       hardware:
+          memory_mb: "4096"
+          num_cpus: "2"
+    delegate_to: "localhost"
