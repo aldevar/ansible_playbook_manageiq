@@ -3,8 +3,8 @@
 # Will return the changes made
 
 - hosts: all
-  gather_facts: false
-  connection: local
+  # gather_facts: false
+  # connection: local
 
   tasks:
   - name: Stop virtual machine
@@ -16,7 +16,7 @@
        folder: "Infra"
        cluster: "SIB-CLUSTER01"
        datacenter: SIB
-       name: "ansible_test"
+       name: "{{ vm_name }}"
        state: "poweredoff"
     delegate_to: "localhost"
     register: stop_vm
@@ -29,7 +29,7 @@
        hostname: "vcenter01.sib.fr"
        cluster: "SIB-CLUSTER01"
        datacenter: SIB
-       name: "ansible_test"
+       name: "{{ vm_name }}"
        state: "present"
        validate_certs: "false"
        folder: "Infra"
