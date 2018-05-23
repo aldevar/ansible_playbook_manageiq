@@ -9,10 +9,9 @@
   tasks:
   - name: Stop virtual machine
     vmware_guest:
-       #hostname: "{{ vcenter_hostname }}"
+       hostname: "{{ vcenter_hostname }}"
        #username: "{{ vcenter_user }}"
        #password: "{{ vcenter_pass }}"
-       hostname: "vcenter01.sib.fr"
        validate_certs: "false"
        folder: "Infra"
        cluster: "SIB-CLUSTER01"
@@ -35,6 +34,6 @@
        validate_certs: "false"
        folder: "Infra"
        hardware:
-          memory_mb: "4096"
-          num_cpus: "2"
+          memory_mb: "{{ vm_memory }}"
+          num_cpus: "{{ vm_cpu }}"
     delegate_to: "localhost"
